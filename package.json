@@ -1,0 +1,28 @@
+{
+  "name": "reactnews",
+  "version": "1.0.0",
+  "description": "",
+  "main": "root.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "antd": "^3.2.0",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-react-html-attrs": "^2.1.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babelify": "^8.0.0",
+    "css-loader": "^0.28.9",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-mixin": "^4.0.0",
+    "react-router-dom": "^4.2.2",
+    "style-loader": "^0.20.1",
+    "webpack": "^3.10.0",
+    "webpack-dev-server": "^2.11.0"
+  }
+}
