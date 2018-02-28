@@ -43,3 +43,7 @@ npm install --save antd
 ```
 npm install --save react-router-dom
 ```
+##### 9.安装react-responsive
+```
+npm install --save react-responsive
+```
