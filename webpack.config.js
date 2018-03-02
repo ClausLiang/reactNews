@@ -3,7 +3,8 @@ var path = require('path')
 
 module.exports = {
     devServer: {
-        historyApiFallback: true
+        historyApiFallback: true,
+        port: 8081
     },
     context: __dirname + '/src',
     entry: "./js/root.js",

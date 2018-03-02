@@ -47,3 +47,7 @@ npm install --save react-router-dom
 ```
 npm install --save react-responsive
 ```
+##### 10.安装fetch
+```
+npm install --save fetch
+```

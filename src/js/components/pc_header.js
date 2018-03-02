@@ -1,6 +1,6 @@
 import React from 'react'
 import { Row, Col } from 'antd'
-import { Menu, Icon, Tabs, Form, Input, Button, Modal } from 'antd'
+import { Menu, Icon, Tabs, Form, Input, Button, Modal, message } from 'antd'
 const TabPane = Tabs.TabPane
 const FormItem = Form.Item
 class PCHeader extends React.Component{
@@ -27,6 +27,13 @@ class PCHeader extends React.Component{
         }
     }
     handleSubmit (e) {
+        e.preventDefault()
+        this.props.form.validateFields((err, values) => {
+            if (!err) {
+                console.log('Received values of form: ', values)
+            }
+        })
+        message.success('注册成功')
     }
     render () {
         let {getFieldDecorator} = this.props.form
