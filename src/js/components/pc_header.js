@@ -15,10 +15,17 @@ class PCHeader extends React.Component{
             userid: 0
         }
     }
+    // 生命周期之加载前
+    componentWillMount () {
+        if (localStorage.userid) {
+            this.setState({hasLogined: true})
+            this.setState({userNickName: localStorage.userNickName, userid: localStorage.userid})
+        }
+    }
     setModalVisible (value) {
         this.setState({modalVisible: value})
     }
-    handleClick (e) {
+    menuClick (e) {
         if (e.key === 'register') {
             this.setState({current: 'register'})
             this.setModalVisible(true)
@@ -31,9 +38,28 @@ class PCHeader extends React.Component{
         this.props.form.validateFields((err, values) => {
             if (!err) {
                 console.log('Received values of form: ', values)
+                this.setState({userNickName: values.r_userName})
+                localStorage.userid = '1'
+                localStorage.userNickName = values.r_userName
             }
         })
-        message.success('注册成功')
+        if (this.state.action == 'login') {
+            this.setState({hasLogined: true})
+        }
+        this.setModalVisible(false)
+        message.success('请求成功')
+    }
+    tabChange (key) {
+        if (key == 1) {
+            this.setState({action: 'login'})
+        } else if (key == 2) {
+            this.setState({action: 'register'})
+        }
+    }
+    logout () {
+        localStorage.userid = ''
+        localStorage.userNickName = ''
+        this.setState({hasLogined: false})
     }
     render () {
         let {getFieldDecorator} = this.props.form
@@ -49,12 +75,11 @@ class PCHeader extends React.Component{
         }
         const userShow = this.state.hasLogined ?
             <Menu.Item key="logout" class="register">
-                <Button type="primary" htmlType='button'>{this.state.userNickName}</Button>&nbsp;&nbsp;
-                <Link target="_black">
-                    <Button type='dashed' htmlType='button'>个人中心</Button>
-                </Link>
+                <Button type="primary" htmlType='button'>{this.state.userNickName}</Button>
                 &nbsp;&nbsp;
-                <Button type='ghost' htmlType='button'>退出</Button>
+                <Button type='dashed' htmlType='button'>个人中心</Button>
+                &nbsp;&nbsp;
+                <Button type='ghost' htmlType='button' onClick={this.logout.bind(this)}>退出</Button>
             </Menu.Item>
             :
             <Menu.Item key="register" class="register">
@@ -71,7 +96,7 @@ class PCHeader extends React.Component{
                         </a>
                     </Col>
                     <Col span={16}>
-                        <Menu mode="horizontal" onClick={this.handleClick.bind(this)} selectedKeys={[this.state.current]}>
+                        <Menu mode="horizontal" onClick={this.menuClick.bind(this)} selectedKeys={[this.state.current]}>
                             <Menu.Item key="top">
                                 <Icon type="appstore" />头条
                             </Menu.Item>
@@ -93,8 +118,23 @@ class PCHeader extends React.Component{
                                 visible={this.state.modalVisible}
                                 onOk={() => {this.setModalVisible(false)}}
                                 onCancel={() => {this.setModalVisible(false)}}>
-                                <Tabs>
-                                    <TabPane tab="注册" key="1">
+                                <Tabs onChange={this.tabChange.bind(this)}>
+                                    <TabPane tab="登陆" key="1">
+                                        <Form onSubmit={this.handleSubmit.bind(this)}>
+                                            <FormItem {...formItemLayout} label="账户">
+                                                {getFieldDecorator('r_userName',{})(
+                                                    <Input placeholder="请输入您的账户"/>
+                                                )}
+                                            </FormItem>
+                                            <FormItem {...formItemLayout} label="密码">
+                                                {getFieldDecorator('r_password',{})(
+                                                    <Input type="password" placeholder="请输入您的密码"/>
+                                                )}
+                                            </FormItem>
+                                            <Button type="primary" htmlType="submit">登陆</Button>
+                                        </Form>
+                                    </TabPane>
+                                    <TabPane tab="注册" key="2">
                                         <Form onSubmit={this.handleSubmit.bind(this)}>
                                             <FormItem {...formItemLayout} label="账户">
                                                 {getFieldDecorator('r_userName',{})(
@@ -114,7 +154,6 @@ class PCHeader extends React.Component{
                                             <Button type="primary" htmlType="submit">注册</Button>
                                         </Form>
                                     </TabPane>
-                                    <TabPane tab="Tab 2" key="2">Content of Tab Pane 2</TabPane>
                                 </Tabs>
                             </Modal>
                         </Menu>
