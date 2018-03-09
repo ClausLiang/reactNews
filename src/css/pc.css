@@ -1,3 +1,4 @@
+/* pc header */
 .logo{
     align-items: center;
     display: flex;
@@ -10,9 +11,27 @@
     font-size: 24px;
     padding-left: 5px;
 }
+.register{
+    float: right!important;
+}
+/* pc footer */
 .footer{
     text-align: center;
 }
-.register{
-    float: right!important;
+
+/* pc footer */
+.container{
+    padding-top: 10px;
+}
+.container .leftContainer{
+    width: 400px;
+    float: left;
+}
+.container .leftContainer .carousel{
+    width: 400px;
+    float: left;
+}
+.container .leftContainer .carousel img{
+    width: 400px;
+    height: auto;
 }
