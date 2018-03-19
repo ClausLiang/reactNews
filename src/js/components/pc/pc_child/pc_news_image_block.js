@@ -45,7 +45,7 @@ export default class PCNewsImageBlock extends React.Component{
         ))  : '没有加载到任何新闻'
         return (
             <div className='topNewsList'>
-                <Card title={this.props.cardTitle} border={true} style={{witdh: this.props.width}}>
+                <Card title={this.props.cardTitle} style={{witdh: this.props.width}}>
                     {newsList}
                 </Card>
             </div>
