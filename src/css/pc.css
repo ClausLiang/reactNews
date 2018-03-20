@@ -48,6 +48,9 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
+.tabs_news li a{
+    color: #666;
+}
 /*image block******START*****/
 .imageblock {
     float: left;
