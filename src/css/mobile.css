@@ -6,16 +6,13 @@ html{
     flex: 1;
     background: #f6f6f6;
 }
-
 #mobileheader header {
     border-bottom: 1px solid #2db7f5;
     padding-left: 10px;
 }
-
 #mobileheader header img{
     height: 50px;
 }
-
 #mobileheader header span{
     font-size: 35px;
     vertical-align: top;
@@ -29,6 +26,7 @@ html{
     margin-top: 0.3rem;
     color: #2db7f5;
 }
+
 /* news block******START*****/
 .m_article{
     font-size:14px;
@@ -82,7 +80,12 @@ html{
     display:inline-block
 }
 /* news block******END*****/
+
 .mobile-carousel img{
     width: 100%;
     height: auto;
+}
+
+.mobile-detail-container{
+    padding: 10px;
 }

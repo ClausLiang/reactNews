@@ -1,5 +1,6 @@
 import React from 'react'
-import {Row, Col, Card} from 'antd'
+import {Row, Col} from 'antd'
+import {Link} from 'react-router-dom'
 
 export default class MobileList extends React.Component{
     constructor () {
@@ -21,22 +22,22 @@ export default class MobileList extends React.Component{
         const {news} = this.state
         const newsList = news.length ? news.map((newItem, index) => (
             <section key={index} className='m_article'>
-                {/*<link to={`detail/${newItem.uniquekey}`} target="_blank">*/}
-                <div className='m_article_img'>
-                    <img src={newItem.thumbnail_pic_s} alt=""/>
-                </div>
-                <div className='m_article_info'>
-                    <div className='m_article_title'>
-                        <span>{newItem.title}</span>
+                <Link to={`detail/${newItem.uniquekey}`}>
+                    <div className='m_article_img'>
+                        <img src={newItem.thumbnail_pic_s} alt=""/>
                     </div>
-                    <div className='m_article_desc'>
-                        <div className='m_article_desc_l'>
-                            <span className='m_article_channel'>{newItem.realtype}</span>
-                            <span className='m_article_time'>{newItem.date}</span>
+                    <div className='m_article_info'>
+                        <div className='m_article_title'>
+                            <span>{newItem.title}</span>
+                        </div>
+                        <div className='m_article_desc'>
+                            <div className='m_article_desc_l'>
+                                <span className='m_article_channel'>{newItem.realtype}</span>
+                                <span className='m_article_time'>{newItem.date}</span>
+                            </div>
                         </div>
                     </div>
-                </div>
-                {/*</link>*/}
+                </Link>
             </section>
         ))  : '没有加载到任何新闻'
         return (

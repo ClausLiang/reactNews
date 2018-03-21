@@ -6,6 +6,7 @@ import PCIndex from './components/pc_index'
 import MobileIndex from './components/mobile_index'
 import {HashRouter, Switch, Route} from 'react-router-dom'
 import PCNewsDetail from './components/pc/pc_child/pc_news_detail'
+import MobileNewsDetail from './components/mobile/mobile_news_detail'
 
 export default class Root extends React.Component{
     render () {
@@ -20,7 +21,12 @@ export default class Root extends React.Component{
                     </HashRouter>
                 </MediaQuery>
                 <MediaQuery query='(max-device-width: 1224px)'>
-                    <MobileIndex/>
+                    <HashRouter>
+                        <Switch>
+                            <Route component={MobileIndex} path="/" exact></Route>
+                            <Route component={MobileNewsDetail} path="/detail/:uniquekey"></Route>
+                        </Switch>
+                    </HashRouter>
                 </MediaQuery>
             </div>
         )
