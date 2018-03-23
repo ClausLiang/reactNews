@@ -17,12 +17,14 @@ class CommonComments extends React.Component{
             + this.props.uniquekey, myFetchOptions)
             .then(response => response.json())
             .then(json => {
-                console.log(json)
                 this.setState({comments: json})
             })
     }
     handleSubmit (e) {
         e.preventDefault()
+        var myFetchOptions = {
+            method: 'GET'
+        }
         this.props.form.validateFields((err, values) => {
             if (!err) {
                 console.log('Received values of form: ', values)
@@ -49,11 +51,10 @@ class CommonComments extends React.Component{
                 sm: {span: 16}
             }
         }
-        const {comments} = this.state.comments
-        const commentsList = comments.length ?
-            comments.map((comment, index) => (
-                <Card key={index} title={comment.UserName} extra={<a href='#'>发表于 {comment.dateTime}</a>}>
-                    <p>{comment.comments}</p>
+        const commentsList = this.state.comments.length ?
+            this.state.comments.map((comment, index) => (
+                <Card key={index} title={comment.UserName} extra={<a href='#'>发表于 {comment.datetime}</a>}>
+                    <p>{comment.Comments}</p>
                 </Card>
             ))
             :
@@ -62,7 +63,7 @@ class CommonComments extends React.Component{
             <div className='comment'>
                 {commentsList}
                 <Form onSubmit={this.handleSubmit.bind(this)}>
-                    <FormItem {...formItemLayout} label="Password">
+                    <FormItem {...formItemLayout}>
                         {getFieldDecorator('remark',{})(<TextArea rows={4} placeholder='您的评论'/>)}
                     </FormItem>
                     <Button type='primary' htmlType='submit'>提交评论</Button>

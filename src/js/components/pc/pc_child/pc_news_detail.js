@@ -34,13 +34,13 @@ export default class PCNewsDetail extends React.Component{
                     <Col span={2}></Col>
                     <Col span={14} className=''>
                         <div className='article-container' dangerouslySetInnerHTML={this.createMarkup()}></div>
+                        <CommonComments uniquekey={this.props.match.params.uniquekey}/>
                     </Col>
                     <Col span={6}>
                         <PCNewsImageBlock count={40} type='top' cardTitle="相关新闻" imageWidth='150px'/>
                     </Col>
                     <Col span={2}></Col>
                 </Row>
-                <CommonComments uniquekey={this.props.match.params.uniquekey}/>
                 <PCFooter></PCFooter>
                 <BackTop/>
             </div>
