@@ -29,7 +29,7 @@ class CommonComments extends React.Component{
             if (!err) {
                 console.log('Received values of form: ', values)
                 fetch('http://newsapi.gugujiankong.com/Handler.ashx?action=comment&userid=1&uniquekey='
-                    + this.props.uniquekey + '&comments=' + values.remark, myFetchOptions)
+                    + this.props.uniquekey + '&comment=' + values.remark, myFetchOptions)
                     .then(response => {
                         response.json()
                     })

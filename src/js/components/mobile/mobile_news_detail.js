@@ -2,6 +2,7 @@ import React from 'react'
 import {BackTop} from 'antd'
 import MobileHeader from './mobile_header'
 import MobileFooter from './mobile_footer'
+import CommonComments from '../common/common_comments'
 export default class MobileNewsDetail extends React.Component{
     constructor () {
         super()
@@ -30,6 +31,7 @@ export default class MobileNewsDetail extends React.Component{
                 <MobileHeader></MobileHeader>
                 <div className='mobile-detail-container'>
                     <div className='article-container' dangerouslySetInnerHTML={this.createMarkup()}></div>
+                    <CommonComments uniquekey={this.props.match.params.uniquekey}/>
                 </div>
                 <MobileFooter></MobileFooter>
                 <BackTop/>
