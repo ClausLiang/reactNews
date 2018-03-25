@@ -1,5 +1,5 @@
 import React from 'react'
-import {Form, Button, Input, Card} from 'antd'
+import {Form, Button, Input, Card, notification} from 'antd'
 const {TextArea} = Input
 const FormItem = Form.Item
 class CommonComments extends React.Component{
@@ -39,6 +39,19 @@ class CommonComments extends React.Component{
             }
         })
     }
+    addUserCollection () {
+        var myFetchOption = {
+            method: 'GET'
+        }
+        fetch('http://newsapi.gugujiankong.com/Handler.ashx?action=uc&userid=1&uniquekey='
+            + this.props.uniquekey,myFetchOption)
+            .then(response => {
+                response.json()
+            })
+            .then(json => {
+                notification['success']({message: 'reactNews提醒', description: '收藏此文章成功'})
+            })
+    }
     render () {
         const {getFieldDecorator} = this.props.form
         const formItemLayout = {
@@ -66,7 +79,8 @@ class CommonComments extends React.Component{
                     <FormItem {...formItemLayout}>
                         {getFieldDecorator('remark',{})(<TextArea rows={4} placeholder='您的评论'/>)}
                     </FormItem>
-                    <Button type='primary' htmlType='submit'>提交评论</Button>
+                    <Button type='primary' htmlType='submit'>提交评论</Button>&nbsp;&nbsp;
+                    <Button type='primary' htmlType='button' onClick={this.addUserCollection.bind(this)}>收藏该文章</Button>
                 </Form>
             </div>
         )
