@@ -13,15 +13,34 @@ class MobileHeader extends React.Component{
             userid: 0
         }
     }
+    // 生命周期之加载前
+    componentWillMount () {
+        if (localStorage.userid) {
+            this.setState({hasLogined: true})
+            this.setState({userNickName: localStorage.userNickName, userid: localStorage.userid})
+        }
+    }
     setModalVisible (value) {
         this.setState({modalVisible: value})
     }
+    // 登陆或注册提交
     handleSubmit (e) {
         e.preventDefault()
+        var myFetchOptions = {
+            method: 'GET'
+        }
         this.props.form.validateFields((err, values) => {
             if (!err) {
                 console.log('Received values of form: ', values)
-                this.setState({userNickName: values.r_userName})
+                fetch("http://newsapi.gugujiankong.com/Handler.ashx?action=" + this.state.action
+                    + "&username="+values.username+"&password="+values.password
+                    +"&r_userName=" + values.r_username + "&r_password=" + values.r_password + "&r_confirmPassword=" + values.r_confirmPassword, myFetchOptions)
+                    .then(response => response.json())
+                    .then(json => {
+                        this.setState({userNickName: json.NickUserName, userid: json.UserId});
+                        localStorage.userid= json.UserId;
+                        localStorage.userNickName = json.NickUserName;
+                    })
             }
         })
         if (this.state.action == 'login') {
@@ -30,7 +49,8 @@ class MobileHeader extends React.Component{
         this.setModalVisible(false)
         message.success('请求成功')
     }
-    login () {
+    // 登陆-展示登陆窗口
+    loginHandle () {
         this.setModalVisible(true)
     }
     tabChange (key) {
@@ -55,7 +75,7 @@ class MobileHeader extends React.Component{
         const userShow = this.state.hasLogined ?
             <Icon type="inbox"/>
             :
-            <Icon type='setting' onClick={this.login.bind(this)}/>
+            <Icon type='setting' onClick={this.loginHandle.bind(this)}/>
         return (
             <div id="mobileheader">
                 <header>
@@ -71,12 +91,12 @@ class MobileHeader extends React.Component{
                             <TabPane tab="登陆" key="1">
                                 <Form onSubmit={this.handleSubmit.bind(this)}>
                                     <FormItem {...formItemLayout} label="账户">
-                                        {getFieldDecorator('r_userName',{})(
+                                        {getFieldDecorator('username',{})(
                                             <Input placeholder="请输入您的账户"/>
                                         )}
                                     </FormItem>
                                     <FormItem {...formItemLayout} label="密码">
-                                        {getFieldDecorator('r_password',{})(
+                                        {getFieldDecorator('password',{})(
                                             <Input type="password" placeholder="请输入您的密码"/>
                                         )}
                                     </FormItem>
@@ -86,7 +106,7 @@ class MobileHeader extends React.Component{
                             <TabPane tab="注册" key="2">
                                 <Form onSubmit={this.handleSubmit.bind(this)}>
                                     <FormItem {...formItemLayout} label="账户">
-                                        {getFieldDecorator('r_userName',{})(
+                                        {getFieldDecorator('r_username',{})(
                                             <Input placeholder="请输入您的账户"/>
                                         )}
                                     </FormItem>
