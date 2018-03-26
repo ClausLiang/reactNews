@@ -28,7 +28,7 @@ class CommonComments extends React.Component{
         this.props.form.validateFields((err, values) => {
             if (!err) {
                 console.log('Received values of form: ', values)
-                fetch('http://newsapi.gugujiankong.com/Handler.ashx?action=comment&userid=1&uniquekey='
+                fetch('http://newsapi.gugujiankong.com/Handler.ashx?action=comment&userid=' + localStorage.userid + '&uniquekey='
                     + this.props.uniquekey + '&comment=' + values.remark, myFetchOptions)
                     .then(response => {
                         response.json()
@@ -43,7 +43,7 @@ class CommonComments extends React.Component{
         var myFetchOption = {
             method: 'GET'
         }
-        fetch('http://newsapi.gugujiankong.com/Handler.ashx?action=uc&userid=1&uniquekey='
+        fetch('http://newsapi.gugujiankong.com/Handler.ashx?action=uc&userid=' + localStorage.userid + '&uniquekey='
             + this.props.uniquekey,myFetchOption)
             .then(response => {
                 response.json()

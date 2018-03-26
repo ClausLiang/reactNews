@@ -22,6 +22,7 @@ class PCHeader extends React.Component{
             this.setState({userNickName: localStorage.userNickName, userid: localStorage.userid})
         }
     }
+    // 登陆注册弹框的显示与隐藏
     setModalVisible (value) {
         this.setState({modalVisible: value})
     }
@@ -33,14 +34,24 @@ class PCHeader extends React.Component{
             this.setState({current: e.key})
         }
     }
+    // 注册或登陆
     handleSubmit (e) {
         e.preventDefault()
+        var myFetchOptions = {
+            method: 'GET'
+        }
         this.props.form.validateFields((err, values) => {
             if (!err) {
                 console.log('Received values of form: ', values)
-                this.setState({userNickName: values.r_userName})
-                localStorage.userid = '1'
-                localStorage.userNickName = values.r_userName
+                fetch("http://newsapi.gugujiankong.com/Handler.ashx?action=" + this.state.action
+                    + "&username="+values.username+"&password="+values.password
+                    +"&r_userName=" + values.r_username + "&r_password=" + values.r_password + "&r_confirmPassword=" + values.r_confirmPassword, myFetchOptions)
+                    .then(response => response.json())
+                    .then(json => {
+                        this.setState({userNickName: json.NickUserName, userid: json.UserId});
+                        localStorage.userid= json.UserId;
+                        localStorage.userNickName = json.NickUserName;
+                    })
             }
         })
         if (this.state.action == 'login') {
@@ -49,6 +60,7 @@ class PCHeader extends React.Component{
         this.setModalVisible(false)
         message.success('请求成功')
     }
+    // 注册或登陆tab切换
     tabChange (key) {
         if (key == 1) {
             this.setState({action: 'login'})
@@ -56,6 +68,7 @@ class PCHeader extends React.Component{
             this.setState({action: 'register'})
         }
     }
+    // 退出登陆
     logout () {
         localStorage.userid = ''
         localStorage.userNickName = ''
@@ -116,18 +129,18 @@ class PCHeader extends React.Component{
                             <Modal
                                 title="用户中心"
                                 visible={this.state.modalVisible}
-                                onOk={() => {this.setModalVisible(false)}}
+                                onOk={this.setModalVisible.bind(this,false)}
                                 onCancel={() => {this.setModalVisible(false)}}>
                                 <Tabs onChange={this.tabChange.bind(this)}>
                                     <TabPane tab="登陆" key="1">
                                         <Form onSubmit={this.handleSubmit.bind(this)}>
                                             <FormItem {...formItemLayout} label="账户">
-                                                {getFieldDecorator('r_userName',{})(
+                                                {getFieldDecorator('username',{})(
                                                     <Input placeholder="请输入您的账户"/>
                                                 )}
                                             </FormItem>
                                             <FormItem {...formItemLayout} label="密码">
-                                                {getFieldDecorator('r_password',{})(
+                                                {getFieldDecorator('password',{})(
                                                     <Input type="password" placeholder="请输入您的密码"/>
                                                 )}
                                             </FormItem>
@@ -137,7 +150,7 @@ class PCHeader extends React.Component{
                                     <TabPane tab="注册" key="2">
                                         <Form onSubmit={this.handleSubmit.bind(this)}>
                                             <FormItem {...formItemLayout} label="账户">
-                                                {getFieldDecorator('r_userName',{})(
+                                                {getFieldDecorator('r_username',{})(
                                                     <Input placeholder="请输入您的账户"/>
                                                 )}
                                             </FormItem>
