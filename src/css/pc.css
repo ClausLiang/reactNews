@@ -79,3 +79,6 @@
 .ant-tabs-bar {
     margin-bottom: 0 !important;
 }
+.ant-menu-horizontal > .ant-menu-item > a, .ant-menu-horizontal > .ant-menu-submenu > a{
+    display: inline-block !important;
+}

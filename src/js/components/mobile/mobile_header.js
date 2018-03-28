@@ -1,4 +1,5 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
 import { Icon, Tabs, Form, Input, Button, Modal, message } from 'antd'
 const TabPane = Tabs.TabPane
 const FormItem = Form.Item
@@ -73,7 +74,9 @@ class MobileHeader extends React.Component{
             },
         }
         const userShow = this.state.hasLogined ?
-            <Icon type="inbox"/>
+            <Link to={'/usercenter'}>
+                <Icon type="inbox"/>
+            </Link>
             :
             <Icon type='setting' onClick={this.loginHandle.bind(this)}/>
         return (

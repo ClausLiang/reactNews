@@ -1,4 +1,5 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
 import { Row, Col } from 'antd'
 import { Menu, Icon, Tabs, Form, Input, Button, Modal, message } from 'antd'
 const TabPane = Tabs.TabPane
@@ -90,7 +91,9 @@ class PCHeader extends React.Component{
             <Menu.Item key="logout" class="register">
                 <Button type="primary" htmlType='button'>{this.state.userNickName}</Button>
                 &nbsp;&nbsp;
-                <Button type='dashed' htmlType='button'>个人中心</Button>
+                <Link to={'/usercenter'}>
+                    <Button type='dashed' htmlType='button'>个人中心</Button>
+                </Link>
                 &nbsp;&nbsp;
                 <Button type='ghost' htmlType='button' onClick={this.logout.bind(this)}>退出</Button>
             </Menu.Item>
