@@ -23,7 +23,6 @@
     "react-mixin": "^4.0.0",
     "react-responsive": "^4.0.4",
     "react-router-dom": "^4.2.2",
-    "react-touch-loader": "^1.1.2",
     "style-loader": "^0.20.1",
     "webpack": "^3.10.0",
     "webpack-dev-server": "^2.11.0"

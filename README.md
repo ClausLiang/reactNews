@@ -51,4 +51,3 @@ npm install --save react-responsive
 ```
 npm install --save fetch
 ```
-##### 11.安装上拉加载的插件react-touch-loader
